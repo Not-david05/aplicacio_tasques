@@ -1,5 +1,6 @@
 import 'package:aplicacio_tasques/components/item_tasca.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class PaginaPrincipal extends StatefulWidget {
   const PaginaPrincipal({super.key});
@@ -14,6 +15,11 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     {"titol":"Tasca 2","valor":true},
     {"titol":"Tasca 3","valor":false},
   ];
+  void canviaCheckbox( bool valorCheckbox, int posLlista){
+      setState(() {
+        tasquesLlista[posLlista]["valor"] =!tasquesLlista[posLlista]["valor"];
+      });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +41,14 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
       body: ListView.builder(
         itemCount: tasquesLlista.length,
         itemBuilder: (context, index){
-            return ItemTasca(textTasca: tasquesLlista[index]["titol"], valorCheckbox: tasquesLlista[index]["valor"]);
+            return ItemTasca(
+              textTasca: tasquesLlista[index]["titol"], 
+              valorCheckbox: tasquesLlista[index]["valor"],
+              canviaValorCheckbox: (valor)=> 
+              canviaCheckbox(
+              tasquesLlista[index]["valor"],
+              index),
+              esborrarTasca: ,);
         } 
         ),
     );
